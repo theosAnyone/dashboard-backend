@@ -1,0 +1,19 @@
+{
+    "workbench.colorCustomizations": {
+        "[Tokyo Night]": {
+            "editor.selectionBackground": "#3D59A1",
+            "editor.selectionHighlightBackground": "#3D59A1",
+            "editorSuggestWidget.background": "#000000",
+            "editorSuggestWidget.selectedBackground": "#3D59A1",
+            "editorBracketHighlight.foreground1": "#ff9d65",
+            "editorBracketHighlight.foreground2": "#9ece6a",
+            "editorBracketHighlight.foreground3": "#f7768e",
+            "editorBracketHighlight.foreground4": "#bb9af7",
+            "editorBracketHighlight.foreground5": "#7dcfff",
+            "editorBracketHighlight.foreground6": "#7aa2f7"
+        },
+        "activityBar.background": "#173042",
+        "titleBar.activeBackground": "#20435D",
+        "titleBar.activeForeground": "#FAFCFD"
+    }
+}
