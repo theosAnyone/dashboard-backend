@@ -11,6 +11,9 @@ const teacherSchema = new Schema({
         type: String,
         required:true,
     },
+    anyone_profile : {
+        type: String,
+    },
     email: {
         type : String,
         required : true,
