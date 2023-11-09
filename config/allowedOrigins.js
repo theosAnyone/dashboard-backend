@@ -1,5 +1,5 @@
 const allowedOrigins = [
-    'https://anyone-dashboard.onrender.com',
+    'http://localhost:3000',
 ]
 
 module.exports = allowedOrigins;
