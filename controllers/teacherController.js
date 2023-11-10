@@ -25,7 +25,7 @@ const getTeacherById = asyncHandler(async(req,res) => {
 const updateTeacher = asyncHandler(async(req,res) => {
 
     const {teacher_id, first_name, last_name, anyone_profile } = req.body
-    console.log(req.body);
+
 
     if(!teacher_id || !first_name || !last_name ) return res.status(400).json({message:'all fields are required'})
     const teacher = await Teacher.findById(teacher_id).exec()
@@ -34,8 +34,9 @@ const updateTeacher = asyncHandler(async(req,res) => {
     teacher.last_name = last_name;
     teacher.anyone_profile = anyone_profile;
     const updated_teacher = await teacher.save()
+
     if(!updated_teacher) return res.status(304).json({message:"error teacher not updated"})
-    res.json(updateTeacher)
+    res.json(updated_teacher)
 })
 
 module.exports = {

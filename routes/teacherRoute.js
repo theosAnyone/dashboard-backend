@@ -3,7 +3,7 @@ const router = express.Router()
 const teacherController = require('../controllers/teacherController')
 const verifyJwt = require('../middleware/verifyJwt')
 
-// router.use(verifyJwt)
+router.use(verifyJwt)
 
 router.route('/')
     .get(teacherController.getAllTeachers)

@@ -4,12 +4,26 @@ const asyncHandler = require('express-async-handler')
 const PostReview = asyncHandler(async (req,res) => {
     
     const {
-        psId, 
-        vocal,
-        fileName,
-    } = req.body
+      psId,
+      vocal,
+      fileName,
+      user_name,
+      bloc_name,
+      teacher_first_name,
+      teacher_last_name,
+      teacher_anyone_profile,
+    } = req.body;
 
-    const payload = {vocal,psId, fileName}
+    const payload = {
+      psId,
+      vocal,
+      fileName,
+      user_name,
+      bloc_name,
+      teacher_first_name,
+      teacher_last_name,
+      teacher_anyone_profile,
+    };
 
     const response = await fetch("http://us1.bot-hosting.net:20663", {
         method: 'POST',

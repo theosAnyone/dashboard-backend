@@ -48,17 +48,19 @@ const login = asyncHandler(async (req, res) => {
         sameSite:'None', // cross-site cookie
         maxAge: 7 * 24 * 60 * 60 * 1000,
     })
-    res.json({accessToken,teacher_id:foundTeacher._id})
+    res.json({accessToken,teacher:foundTeacher})
 })
 
 const signUp = asyncHandler(async (req,res) => {
-    const {first_name, last_name ,email ,password} = req.body
-    console.log(1);
-    // Confir, data
-    if(!first_name|| !last_name || !email || !password ){
-        return res.status(400).json({message:'all fields are required'})
+    const { first_name, last_name, email, password, secret_key } = req.body;
+    if(secret_key !== process.env.SECRET_KEY){
+        return res.status(400).json({message: "an error occured..."})
     }
-    console.log(2);
+    // Confir, data
+    if (!first_name || !last_name || !email || !password || !secret_key) {
+      return res.status(400).json({ message: "all fields are required" });
+    }
+
     // if(id!== "1234"){
     //     return res.status(400).json({message:'bad id'})
     // }
