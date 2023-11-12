@@ -233,6 +233,10 @@ const Journey_Infos = new Schema({
 
 })
 const Student_Perks = new Schema({
+  tags:{
+    type:[String],
+    default:[],
+  },
   uvps: {
     type: [uvpSchema],
     default:[],
