@@ -23,7 +23,9 @@ const updateUser = asyncHandler(async (req,res) => {
     {
         userId,
         blocName,
-        review_id
+        review_id,
+        tags,
+        set_not_reviewed,
     } = req.body
 
     // Confir, data
@@ -52,6 +54,10 @@ const updateUser = asyncHandler(async (req,res) => {
     
     user.Journey_Infos.blocs[bloc_index].reviews.push(review_id);
 
+    if(set_not_reviewed){
+        user.Journey_Infos.blocs[bloc_index].reviews = []
+    }
+    user.Student_Perks.tags = tags;
     
     const updatedUser = await user.save()
 

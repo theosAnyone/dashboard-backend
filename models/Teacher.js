@@ -29,6 +29,10 @@ const teacherSchema = new Schema({
     reviews : {
         type: [ObjectId],
         ref:"reviews",
+    },
+    roles : {
+        type:[String],
+        default:"Teacher",
     }
 })
 
