@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express')
+const rateLimit = require('express-rate-limit')
 const app = express()
 const path = require('path')
 const errorHandler = require('./middleware/errorHandler')
@@ -11,11 +12,23 @@ const mongoose = require('mongoose')
 const {logger, logEvents} = require('./middleware/logger')
 const PORT = process.env.PORT || 3500
 
+app.set('trust proxy', true)
+
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000, //15 min
+    max: 100, // limiter chaque Ip a 100 requetes par window
+    // ... autres configs
+})
+
 connectDB()
+
+
 
 app.use(logger)
 
 app.use(cors(corsOptions))
+
+app.use(limiter)
 
 app.use(express.json({limit:'50mb'}))
 
