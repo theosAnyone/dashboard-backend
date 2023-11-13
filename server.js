@@ -12,7 +12,7 @@ const mongoose = require('mongoose')
 const {logger, logEvents} = require('./middleware/logger')
 const PORT = process.env.PORT || 3500
 
-app.set('trust proxy', true)
+
 
 const limiter = rateLimit({
     windowMs: 15 * 60 * 1000, //15 min
