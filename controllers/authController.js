@@ -28,7 +28,7 @@ const login = asyncHandler(async (req, res) => {
         {
             "TeacherInfo":{
                 "email": foundTeacher.email,
-
+                "roles": foundTeacher.roles || []
                 
             },
         },
@@ -37,7 +37,7 @@ const login = asyncHandler(async (req, res) => {
     )
 
     const refreshToken = jwt.sign(
-        {"email": foundTeacher.email },
+        {"email": foundTeacher.email, "roles": foundTeacher.roles || [] },
         process.env.REFRESH_TOKEN_SECRET,
         {expiresIn: '7d'}
     )
@@ -81,11 +81,13 @@ const signUp = asyncHandler(async (req,res) => {
     //Create and store new teacher
     const teacher = await Teacher.create(teacherObject)
     if(!teacher) return res.status(400).json({message: 'Invalid teacher data received'});
+    console.log("foundTeacher:",foundTeacher);
 
     const accessToken = jwt.sign(
         {
             "TeacherInfo":{
                 "email": teacher.email,
+                "roles": teacher.roles || null
 
                 
             },
@@ -127,11 +129,12 @@ const refresh = (req, res) => {
             const foundTeacher = await Teacher.findOne({ email: decoded.email})
             console.log("foundTeacher:",foundTeacher);
             if(!foundTeacher) return res.status(401).json({ message:'Unauthorized'})
-
+            console.log("foundTeacher:",foundTeacher);
             const accessToken = jwt.sign(
                 {
                     "TeacherInfo":{
                         "email":foundTeacher.email,
+                        "roles": foundTeacher.roles || null
 
                     }
                 },
