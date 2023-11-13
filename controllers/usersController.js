@@ -56,6 +56,7 @@ const updateUser = asyncHandler(async (req,res) => {
 
     if(set_not_reviewed){
         user.Journey_Infos.blocs[bloc_index].reviews = []
+        user.Journey_Infos.blocs[bloc_index].reviewed = false;
     }
     user.Student_Perks.tags = tags;
     
