@@ -162,10 +162,10 @@ const blocSchema = new Schema({
   },
   reviews: {
     type: [objectId],
-    ref: "reviews"
+    ref: "reviews",
+    default:[],
   }
 });
-
 
 const Discord_Infos = new Schema({
   discordId: {
