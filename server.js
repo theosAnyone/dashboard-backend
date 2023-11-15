@@ -11,6 +11,7 @@ const connectDB = require('./config/dbConn')
 const mongoose = require('mongoose')
 const {logger, logEvents} = require('./middleware/logger')
 const PORT = process.env.PORT || 3500
+<<<<<<< HEAD
 
 
 
@@ -20,6 +21,9 @@ const limiter = rateLimit({
     // ... autres configs
 })
 
+=======
+const User = require('./models/User')
+>>>>>>> dev
 connectDB()
 
 
@@ -66,3 +70,4 @@ mongoose.connection.on('error',err => {
     console.log(err);
     logEvents(`${err.no}: ${err.code}\t${err.syscall}\t${err.hostname}`,'mongoErr.log')
 })
+

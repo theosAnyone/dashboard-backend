@@ -6,11 +6,12 @@ const asyncHandler = require('express-async-handler')
 // @route Get /users
 // @acces Private
 const getAllUsers = asyncHandler(async (req,res) => {
-
-     const users = await User.find().lean() // .select('-password') pour ne pas retourner le mot de pass. lean() pour ne pas recevoir un document mongoose avec ses methodes (Save etc...) simplement de la data json.
+    console.log("Get users");
+     const users = await User.find().lean().exec() // .select('-password') pour ne pas retourner le mot de pass. lean() pour ne pas recevoir un document mongoose avec ses methodes (Save etc...) simplement de la data json.
      if(!users?.length){
         return res.status(400).json({message:'No users found'})
      }
+     console.log("users:",users.length);
      res.json(users)
 })
 
@@ -59,7 +60,7 @@ const updateUser = asyncHandler(async (req,res) => {
         user.Journey_Infos.blocs[bloc_index].reviewed = false;
     }
     user.Student_Perks.tags = tags;
-    
+    console.log("user:",user);
     const updatedUser = await user.save()
 
     res.json(updatedUser)
