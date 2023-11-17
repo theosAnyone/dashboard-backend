@@ -45,8 +45,10 @@ const PostReview = asyncHandler(async (req,res) => {
         
     } else {
         // Si une erreur se produit, renvoyer le message d'erreur
-        const errorMessage = await response.text();
-        return res.status(response.status).json({ message: errorMessage });
+
+        const errorResponse = await response.json();
+        const errorMessage = errorResponse.message
+        return res.status(response.status).json({message:errorMessage});
     }
 })  
 

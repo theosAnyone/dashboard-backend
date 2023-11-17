@@ -60,8 +60,9 @@ const updateUser = asyncHandler(async (req,res) => {
         user.Journey_Infos.blocs[bloc_index].reviewed = false;
     }
     user.Student_Perks.tags = tags;
-    console.log("user:",user);
+    console.log("saving user...");
     const updatedUser = await user.save()
+    console.log("User saved");
 
     res.json(updatedUser)
 })
