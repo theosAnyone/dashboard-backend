@@ -12,5 +12,6 @@ router.route('/')
 
 router.route('/id/:teacher_id') 
     .get(teacherController.getTeacherById)
+    .patch(teacherController.addTeacherReview)
 
 module.exports = router;

@@ -39,8 +39,20 @@ const updateTeacher = asyncHandler(async(req,res) => {
     res.json(updated_teacher)
 })
 
+const addTeacherReview = asyncHandler(async(req,res) => {
+    const {teacher_id, review_id} = req.body;
+    if(!teacher_id || review_id) return res.status(400).json({message:'missing fields'})
+    const teacher = await Teacher.findById(teacher_id).lean().exec()
+    if(!teacher) return res.status(400).json({message:'no teacher found'})
+    teacher.reviews.push(review_id)
+    const updated_teacher = await teacher.save()
+    if(!updated_teacher) return res.status(500).json({message:"error updating teacher"})
+    res.json(updated_teacher);
+})
+
 module.exports = {
     getAllTeachers,
     getTeacherById,
     updateTeacher,
+    addTeacherReview,
 }
