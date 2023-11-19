@@ -10,4 +10,7 @@ router.route('/')
     .patch(usersControllers.updateUser)
     .delete(usersControllers.delteUser)
 
+router.route('/id/:userId')
+    .get(usersControllers.getUserByid)
+
 module.exports = router;
