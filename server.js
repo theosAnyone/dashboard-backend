@@ -11,7 +11,7 @@ const connectDB = require('./config/dbConn')
 const mongoose = require('mongoose')
 const {logger, logEvents} = require('./middleware/logger')
 const PORT = process.env.PORT || 3500
-
+const User = require('./models/User')
 
 const limiter = rateLimit({
     windowMs: 15 * 60 * 1000, //15 min
@@ -56,7 +56,7 @@ app.all('*', (req, res) => {
 
 app.use(errorHandler);
 
-mongoose.connection.once('open',()=>{
+mongoose.connection.once('open',async ()=>{
     console.log('Connected to MongoDB');
     app.listen(PORT, () => console.log(`Server running on port http://localhost:${PORT}`))
 })

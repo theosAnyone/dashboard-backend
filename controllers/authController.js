@@ -61,9 +61,6 @@ const signUp = asyncHandler(async (req,res) => {
       return res.status(400).json({ message: "all fields are required" });
     }
 
-    // if(id!== "1234"){
-    //     return res.status(400).json({message:'bad id'})
-    // }
     // Check for duplicates
     const duplicate = await Teacher.findOne({email}).collation({
         locale:'en',

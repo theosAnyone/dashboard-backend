@@ -1,3 +1,4 @@
+const { default: mongoose } = require('mongoose');
 const User = require('../models/User')
 const asyncHandler = require('express-async-handler')
 
@@ -7,7 +8,7 @@ const asyncHandler = require('express-async-handler')
 // @acces Private
 const getAllUsers = asyncHandler(async (req,res) => {
     console.log("Get users");
-     const users = await User.find().lean().exec() // .select('-password') pour ne pas retourner le mot de pass. lean() pour ne pas recevoir un document mongoose avec ses methodes (Save etc...) simplement de la data json.
+     const users = await User.find({}).lean().exec()
      if(!users?.length){
         return res.status(400).json({message:'No users found'})
      }
@@ -52,8 +53,8 @@ const updateUser = asyncHandler(async (req,res) => {
     const bloc_index = user.Journey_Infos.blocs.findIndex(bloc=>bloc.blocName === blocName)
     
     if(bloc_index < 0) return res.status(400).json({message:`No bloc found with this blocName "${blocName}"`})
-    
-    user.Journey_Infos.blocs[bloc_index].reviews.push(review_id);
+    if(!mongoose.Types.ObjectId.isValid(review_id)) return res.status(400).json({message:`Not valid ObjectId ${review_id}`})
+    user.Journey_Infos.blocs[bloc_index].reviews.push(new mongoose.Types.ObjectId(review_id));
 
     if(set_not_reviewed){
         user.Journey_Infos.blocs[bloc_index].reviews = []
@@ -67,6 +68,15 @@ const updateUser = asyncHandler(async (req,res) => {
     res.json(updatedUser)
 })
 
+const getUserByid = asyncHandler(async (req,res) => {
+    const {userId} = req.params
+    if(!userId) return res.status(400).json({message:'no userId params'})
+    if(!mongoose.Types.ObjectId.isValid(userId)) return res.status(400).json({message:'invalid type'})
+    const object_user_id = new mongoose.Types.ObjectId(userId)
+    const user = await User.findById(object_user_id)
+    if(!user) return res.status(500).json({message:'no user found'})
+    return res.json(user)
+})
 
 // @desc delete a user
 // @route DELETE /users
@@ -79,5 +89,6 @@ module.exports = {
     getAllUsers,
     // createNewUser,
     updateUser,
+    getUserByid,
     delteUser,
 }
